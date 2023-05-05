@@ -9,7 +9,7 @@ function Navbar() {
   const navigate = useNavigate();
   return (
     <>
-      <div className="navbar bg-navbar border border-b-navbar-line h-28">
+      <div className="navbar bg-navbar border border-navbar-line h-28">
         {/* NAVBAR LOGO */}
         <div className="flex-1 pl-14">
           <a
