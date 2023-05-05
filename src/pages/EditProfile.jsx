@@ -49,8 +49,8 @@ function EditProfile() {
             />
           </div>
           {/* BUTTON SAVE */}
-          <div className="btn btn-sm px-8 border-none hover:bg-light-gray hover:text-neutral-900 hover:ring-2 hover:ring-neutral-600 bg-light-green text-neutral-200 hover:text-lg">
-            <button className="">Save</button>
+          <div className="btn btn-sm px-8 border-none hover:bg-light-gray hover:text-neutral-900 hover:ring-2 hover:ring-neutral-600 bg-light-green text-neutral-50 hover:text-lg">
+            <button className="font-bold">Save</button>
           </div>
         </div>
       </div>
