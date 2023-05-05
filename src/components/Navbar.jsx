@@ -21,6 +21,10 @@ function Navbar() {
         </div>
 
         {/* AVATAR */}
+        <div>
+          <div className="btn btn-sm mr-10 bg-light-green border-none hover:ring hover:ring-light-green">
+            <button className="px-3">Upload</button>
+          </div>
         <div className="flex-none gap-2 pr-14">
           <div className="dropdown dropdown-end dropdown-hover">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -66,6 +70,7 @@ function Navbar() {
               </li>
             </ul>
           </div>
+        </div>
         </div>
       </div>
     </>
