@@ -9,6 +9,8 @@ export default {
     colors: {
       "light-green": "#2FC4B2",
       "light-gray": "#E7E7E7",
+      "navbar-line": "#E1E1E1",
+      navbar: "#F9F9F9",
     },
   },
   plugins: [require("daisyui")],
