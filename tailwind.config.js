@@ -10,6 +10,7 @@ export default {
       "light-green": "#2FC4B2",
       "light-gray": "#E7E7E7",
       "navbar-line": "#E1E1E1",
+      "dot-line": "#B2B2B2",
       navbar: "#F9F9F9",
     },
   },
