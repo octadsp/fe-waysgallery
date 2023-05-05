@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import ImgContainer from "../assets/imgContainer.png";
 import ArtImage from "../assets/artProfile.png";
 import Project1 from "../assets/Project1.png";
+import { Carousel } from "flowbite-react";
 
 function UserPage() {
   return (
@@ -54,9 +55,22 @@ function UserPage() {
               </div>
             </div>
             {/* RIGHT */}
-            <div className="w-7/12 flex flex-col justify-end z-10">
-              <div className="pl-10">
-                <img src={ArtImage} className="drop-shadow-2xl" />
+            <div className="w-6/12 z-10 mr-16">
+              <div className="carousel rounded-box">
+                <div className="carousel-item w-full">
+                  <img
+                    src={ArtImage}
+                    className="w-full"
+                    alt="Tailwind CSS Carousel component"
+                  />
+                </div>
+                <div className="carousel-item w-full">
+                  <img
+                    src={ArtImage}
+                    className="w-full"
+                    alt="Tailwind CSS Carousel component"
+                  />
+                </div>
               </div>
             </div>
           </div>
