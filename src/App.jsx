@@ -20,14 +20,14 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/user" element={<UserPage />} />
+        <Route path="/user/:id" element={<UserPage />} />
 
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/detail/:id" element={<DetailPost />} />
         <Route path="/upload-post" element={<UploadPost />} />
-        <Route path="/send-project" element={<SendProject />} />
+        <Route path="/send-project/:id" element={<SendProject />} />
         <Route path="/view-project" element={<ViewProject />} />
-        <Route path="/order" element={<OrderPage />} />
+        <Route path="/order/:id" element={<OrderPage />} />
         <Route path="/list-order" element={<ListOrder />} />
         <Route path="/list-offer" element={<ListOffer />} />
       </Routes>
