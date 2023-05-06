@@ -39,7 +39,7 @@ function UserPage() {
                   </h1>
                 </div>
 
-                {/* BUTTON EDIT PROFILE */}
+                {/* BUTTON */}
                 <div className="pb-10 pt-4 flex gap-5">
                   <div>
                     <button className="btn btn-sm border-none w-30 bg-light-gray text-xs text-neutral-900 px-7 hover:ring-2 hover:bg-base-200 hover:text-neutral-900 hover:ring-light-green">
