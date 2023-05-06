@@ -11,6 +11,7 @@ export default {
       "light-gray": "#E7E7E7",
       "navbar-line": "#E1E1E1",
       "dot-line": "#B2B2B2",
+      "list-color": "#0D33B9",
       navbar: "#F9F9F9",
     },
   },

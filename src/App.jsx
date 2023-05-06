@@ -11,7 +11,6 @@ import UploadPost from "./pages/UploadPost";
 import SendProject from "./pages/SendProject";
 import ViewProject from "./pages/ViewProject";
 import ListOrder from "./pages/ListOrder";
-import ListOffer from "./pages/ListOffer";
 
 function App() {
   return (
@@ -29,7 +28,6 @@ function App() {
         <Route path="/view-project" element={<ViewProject />} />
         <Route path="/order/:id" element={<OrderPage />} />
         <Route path="/list-order" element={<ListOrder />} />
-        <Route path="/list-offer" element={<ListOffer />} />
       </Routes>
     </Router>
   );
