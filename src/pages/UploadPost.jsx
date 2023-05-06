@@ -68,12 +68,12 @@ function UploadPost() {
           {/* BUTTON */}
           <div className="flex gap-5">
             <div>
-              <div className="btn btn-sm px-8 border-none hover:bg-light-green hover:text-neutral-50 hover:ring-2 hover:ring-neutral-600 bg-light-gray text-neutral-900 hover:text-lg">
-                <button className="font-bold">Save</button>
+              <div className="btn btn-sm px-7 border-none hover:bg-light-green hover:text-neutral-50 hover:ring-2 hover:ring-neutral-600 bg-light-gray text-neutral-900 hover:text-lg">
+                <button className="font-bold">Cancel</button>
               </div>
             </div>
             <div>
-              <div className="btn btn-sm px-8 border-none hover:bg-light-gray hover:text-neutral-900 hover:ring-2 hover:ring-neutral-600 bg-light-green text-neutral-50 hover:text-lg">
+              <div className="btn btn-sm px-9 border-none hover:bg-light-gray hover:text-neutral-900 hover:ring-2 hover:ring-neutral-600 bg-light-green text-neutral-50 hover:text-lg">
                 <button className="font-bold">Post</button>
               </div>
             </div>

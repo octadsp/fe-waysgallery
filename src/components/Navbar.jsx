@@ -7,6 +7,11 @@ import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    // Back to Landing Page
+    navigate("/");
+  };
   return (
     <>
       <div className="navbar bg-navbar border border-navbar-line h-28">
@@ -23,7 +28,9 @@ function Navbar() {
         {/* AVATAR */}
         <div>
           <div className="btn btn-sm mr-10 bg-light-green border-none hover:ring hover:ring-light-green">
-            <button className="px-3">Upload</button>
+            <button onClick={() => navigate("/upload-post")} className="px-3">
+              Upload
+            </button>
           </div>
           <div className="flex-none gap-2 pr-14">
             <div className="dropdown dropdown-end dropdown-hover">
@@ -61,7 +68,10 @@ function Navbar() {
                   </a>
                 </li>
                 <li>
-                  <a className="hover:bg-light-grey hover:ring-1 hover:ring-neutral-400 hover:text-base hover:font-bold">
+                  <a
+                    onClick={handleLogout}
+                    className="hover:bg-light-grey hover:ring-1 hover:ring-neutral-400 hover:text-base hover:font-bold"
+                  >
                     <span>
                       <img className="w-5" src={LogoutIcon} />
                     </span>
