@@ -8,7 +8,7 @@ function ProfilePage() {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col justify-between h-full w-full">
+      <div className="flex flex-col justify-between h-full w-full mb-20">
         {/* PROFILE INFO */}
         <div className="">
           <div className="flex justify-end">
@@ -80,7 +80,7 @@ function ProfilePage() {
             <div className="grid grid-cols-4 gap-2 mx-20">
               {/* CARD LIST POST */}
               <div className="card w-80 shadow-xl mb-2">
-                <img src={Project1} alt="project1" />
+                <img src={Project1} alt="project1" className="hover:opacity-70" />
               </div>
               {/* END CARD */}
             </div>

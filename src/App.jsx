@@ -20,12 +20,11 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/user/:id" element={<UserPage />} />
-
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/detail/:id" element={<DetailPost />} />
         <Route path="/upload-post" element={<UploadPost />} />
         <Route path="/send-project/:id" element={<SendProject />} />
-        <Route path="/view-project" element={<ViewProject />} />
+        <Route path="/view-project/:id" element={<ViewProject />} />
         <Route path="/order/:id" element={<OrderPage />} />
         <Route path="/list-order" element={<ListOrder />} />
       </Routes>
