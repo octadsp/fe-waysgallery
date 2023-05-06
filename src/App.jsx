@@ -1,4 +1,3 @@
-import { Button } from "flowbite-react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
@@ -12,21 +11,28 @@ import SendProject from "./pages/SendProject";
 import ViewProject from "./pages/ViewProject";
 import ListOrder from "./pages/ListOrder";
 
+import { UserContext } from "./context/UserContext";
+import { PrivateRouteLogin } from "./components/PrivateRoutes";
+
 function App() {
   return (
     <Router>
       <Routes>
+        {/* Bisa Diakses Global */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/user/:id" element={<UserPage />} />
-        <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/detail/:id" element={<DetailPost />} />
-        <Route path="/upload-post" element={<UploadPost />} />
-        <Route path="/send-project/:id" element={<SendProject />} />
-        <Route path="/view-project/:id" element={<ViewProject />} />
-        <Route path="/order/:id" element={<OrderPage />} />
-        <Route path="/list-order" element={<ListOrder />} />
+        {/* Bisa Diakses Kalo udah Login */}
+        <Route element={<PrivateRouteLogin />}>
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/user/:id" element={<UserPage />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/upload-post" element={<UploadPost />} />
+          <Route path="/send-project/:id" element={<SendProject />} />
+          <Route path="/view-project/:id" element={<ViewProject />} />
+          <Route path="/order/:id" element={<OrderPage />} />
+          <Route path="/list-order" element={<ListOrder />} />
+        </Route>
       </Routes>
     </Router>
   );
