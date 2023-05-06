@@ -22,7 +22,34 @@ function RegisterModal() {
     try {
       e.preventDefault();
 
-      const response = await API.post("/register", formRegister);
+      // Pengecekan Form Input jangan kosong pake trim
+      if (
+        formRegister.email.trim() === "" ||
+        formRegister.email.trim() === null
+      ) {
+        const alert = <ErrorAlert title={"Email cant be empty!"} />;
+        setMessage(alert);
+        return;
+      }
+      if (formRegister.password === "" || formRegister.password === null) {
+        const alert = <ErrorAlert title={"Password cant be empty!"} />;
+        setMessage(alert);
+        return;
+      }
+      if (
+        formRegister.fullName.trim() === "" ||
+        formRegister.fullName.trim() === null
+      ) {
+        const alert = <ErrorAlert title={"Name cant be empty!"} />;
+        setMessage(alert);
+        return;
+      }
+
+      const response = await API.post("/register", {
+        email: formRegister.email.trim(),
+        password: formRegister.password,
+        fullName: formRegister.fullName.trim(),
+      });
 
       console.log("register success : ", response);
 
@@ -35,7 +62,7 @@ function RegisterModal() {
         fullName: "",
       });
     } catch (error) {
-      const alert = <ErrorAlert title={"Register Failed! 🫣"} />;
+      const alert = <ErrorAlert title={"Oops, email already exists! 🫣"} />;
       setMessage(alert);
       console.log("register failed : ", error);
     }
