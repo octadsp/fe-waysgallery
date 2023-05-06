@@ -2,8 +2,10 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import CloudIcon from "../assets/cloudIcon.png";
 import PlusIcon from "../assets/plusIcon.png";
+import { useNavigate } from "react-router-dom";
 
 function UploadPost() {
+  const navigate = useNavigate();
   return (
     <>
       <Navbar />
@@ -69,7 +71,9 @@ function UploadPost() {
           <div className="flex gap-5">
             <div>
               <div className="btn btn-sm px-7 border-none hover:bg-light-green hover:text-neutral-50 hover:ring-2 hover:ring-neutral-600 bg-light-gray text-neutral-900 hover:text-lg">
-                <button className="font-bold">Cancel</button>
+                <button onClick={() => navigate("/home")} className="font-bold">
+                  Cancel
+                </button>
               </div>
             </div>
             <div>
