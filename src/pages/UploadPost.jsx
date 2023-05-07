@@ -170,8 +170,8 @@ function UploadPost() {
             </div>
             <div>
               <div className="btn btn-sm px-9 border-none hover:bg-light-gray hover:text-neutral-900 hover:ring-2 hover:ring-neutral-600 bg-light-green text-neutral-50 hover:text-lg">
-                <button type="submit" className="font-bold">
-                  Post
+                <button disabled={handleAddForm.isLoading} type="submit" className="font-bold">
+                  {handleAddForm.isLoading ? "wait..." : "Post" }
                 </button>
               </div>
             </div>
