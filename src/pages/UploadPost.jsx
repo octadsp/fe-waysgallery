@@ -22,6 +22,7 @@ function UploadPost() {
   const [formPost, setFormPost] = useState({
     title: "",
     description: "",
+    image: [],
   });
 
   const { title, description } = formPost;
@@ -34,6 +35,20 @@ function UploadPost() {
     });
   };
 
+  const handleOnChangeImage = (e) => {
+    setFormPost({
+      ...formPost,
+      [e.target.name]:
+        e.target.type === "file" ? e.target.files : e.target.value,
+    });
+
+    // Create thumbnail url for preview
+    if (e.target.type === "file") {
+      let url = URL.createObjectURL(e.target.files[0]);
+      setPreview(url);
+    }
+  };
+
   const handleAddForm = useMutation(async (e) => {
     try {
       e.preventDefault();
@@ -43,7 +58,21 @@ function UploadPost() {
       formData.set("description", formPost.description);
 
       const response = await API.post("/post", formData);
-      console.log("success add post :", response);
+      console.log(response.data.data.id);
+
+      // Configuration
+      const config = {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      };
+
+      const formDataImage = new FormData();
+      formDataImage.set("image", formPost.image[0], formPost.image[0].name);
+      formDataImage.set("post_id", response.data.data.id);
+
+      const responsePostImage = await API.post("/photo", formDataImage, config);
+      console.log("success add post :", response, responsePostImage);
       navigate("/home");
     } catch (error) {
       console.log("Add post failed :", error);
@@ -64,8 +93,8 @@ function UploadPost() {
         {/* LEFT CONTENT */}
         <div className="flex flex-col justify-center items-center h-full w-1/2 mt-14">
           {/* TOP LEFT CONTENT */}
-          {/* <input
-            onChange={handleChange}
+          <input
+            onChange={handleOnChangeImage}
             id="image"
             name="image"
             form="image"
@@ -85,7 +114,7 @@ function UploadPost() {
               <span className="text-light-green font-bold">Browse</span>
               &nbsp;to choose a file
             </p>
-          </button> */}
+          </button>
 
           {/* BOTTOM LEFT CONTENT */}
           {/* <div className="flex gap-7 mt-5">
