@@ -67,9 +67,9 @@ function App() {
         <Routes>
           {/* Bisa Diakses Global */}
           <Route path="/" element={<LandingPage />} />
-          <Route path="/post/:id" element={<DetailPost />} />
           {/* Bisa Diakses Kalo udah Login */}
           <Route element={<PrivateRouteLogin />}>
+            <Route path="/post/:id" element={<DetailPost />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/user/:id" element={<UserPage />} />

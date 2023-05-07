@@ -74,16 +74,9 @@ function ProfilePage() {
                 </div>
               </div>
             </div>
-            {/* RIGHT */}
+            {/* RIGHT ART IMAGE */}
             <div className="w-6/12 z-10 mr-16">
               <div className="carousel rounded-box">
-                <div className="carousel-item w-full">
-                  <img
-                    src={ArtImage}
-                    className="w-full"
-                    alt="Tailwind CSS Carousel component"
-                  />
-                </div>
                 <div className="carousel-item w-full">
                   <img
                     src={ArtImage}
