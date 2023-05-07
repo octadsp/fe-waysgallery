@@ -17,6 +17,7 @@ function HomePage() {
     const response = await API.get("/posts");
     return response.data.data;
   });
+  console.log(posts);
 
   const handlePageListChange = (e) => {
     setTitle(e.target.value);
@@ -61,8 +62,8 @@ function HomePage() {
               <div>
                 <CardPost image={item.photos[0].image} />
               </div>
-              {/* <CardPost image={Cogan} /> */}
-            </Link>
+          {/* <CardPost image={Cogan} /> */}
+          </Link>
           ))}
         </div>
       </div>

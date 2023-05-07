@@ -18,7 +18,7 @@ function DetailPost() {
   };
 
   let { data: posts, refetch } = useQuery("postsDetailCache", async () => {
-    const response = await API.get(`post/` + id);
+    const response = await API.get(`/post/` + id);
     console.log(response);
     return response.data.data;
   });

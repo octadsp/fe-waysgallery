@@ -12,6 +12,8 @@ function ProfilePage() {
   const [state, _] = useContext(UserContext);
   const navigate = useNavigate();
 
+  console.log(state.user.id);
+
   const [profile, setProfile] = useState();
 
   // Fetching data user from database
@@ -19,6 +21,14 @@ function ProfilePage() {
     const response = await API.get(`/user/${state.user.id}`);
     return response.data.data;
   });
+
+  // Fetching data user from database
+  let { data: posts } = useQuery("postsCache", async () => {
+    const response = await API.get(`/user/${state.user.id}/posts`);
+    return response.data.data;
+  });
+
+  console.log(posts);
 
   return (
     <>
@@ -49,7 +59,7 @@ function ProfilePage() {
                 {/* TITLE ART */}
                 <div>
                   <h1 className="font-bold text-6xl h-44 mr-20 mt-5">
-                    Welcome To My Art
+                    {users.greeting}
                   </h1>
                 </div>
 
@@ -95,20 +105,21 @@ function ProfilePage() {
           {/* LIST POST */}
           <div className="mt-10">
             {/* PARENT CARD */}
-            <div className="grid grid-cols-4 gap-2 mx-20">
+            <div className="grid grid-cols-5 gap-3 mx-20">
               {/* CARD LIST POST */}
-              {users.posts?.map((item, index) => {
+              {posts?.map((item, index) => (
                 <div key={index} className="card w-80 shadow-xl mb-2">
-                  <img
-                    src={item.photos}
-                    alt="project1"
-                    className="hover:opacity-70"
-                  />
-                </div>;
-              })}
-
-              {/* END CARD */}
+                  {item.photos?.map((item, index) => (
+                    <img
+                      src={item.image}
+                      alt={index}
+                      className="hover:opacity-70 h-full w-full object-cover"
+                    />
+                  ))}
+                </div>
+              ))}
             </div>
+            {/* END CARD */}
           </div>
           {/* END POST */}
         </div>
