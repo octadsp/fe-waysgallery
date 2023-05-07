@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Project1 from "../assets/project1.png";
 import ArtProfile from "../assets/artProfile.png";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { API } from "../config/api";
+import { UserContext } from "../context/UserContext";
 
 function DetailPost() {
+  const [state, _] = useContext(UserContext);
+  const navigate = useNavigate();
   const { id } = useParams();
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -43,14 +46,20 @@ function DetailPost() {
             </div>
           </div>
           {/* RIGHT PROFILE */}
-          <div className="flex items-center gap-5 w-52 justify-center">
-            <div className="btn btn-sm bg-light-gray border-none text-neutral-900 hover:font-bold hover:text-neutral-50 hover:ring-2 hover:ring-light-green">
-              <button className="px-2">Follow</button>
+          {posts.user.id === state.user.id ? (
+            <div className="flex items-center gap-5 w-52 justify-center"></div>
+          ) : (
+            <div className="flex items-center gap-5 w-52 justify-center">
+              <div className="btn btn-sm bg-light-gray border-none text-neutral-900 hover:font-bold hover:text-neutral-50 hover:ring-2 hover:ring-light-green">
+                <button className="px-2">Follow</button>
+              </div>
+              <div className="btn btn-sm bg-light-green border-none hover:font-bold hover:ring-2 hover:ring-light-green">
+                <button onClick={() => navigate(`/order/${posts.id}`)} className="px-4">
+                  Hire
+                </button>
+              </div>
             </div>
-            <div className="btn btn-sm bg-light-green border-none hover:font-bold hover:ring-2 hover:ring-light-green">
-              <button className="px-4">Hire</button>
-            </div>
-          </div>
+          )}
         </div>
         {/* IMAGE POST */}
         <div className="mt-10 w-full mx-auto">
