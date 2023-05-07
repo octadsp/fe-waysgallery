@@ -11,7 +11,7 @@ function LoginModal() {
   const navigate = useNavigate();
   const [message, setMessage] = useState(null);
 
-  const [state, dispatch] = useContext(UserContext);
+  const [_, dispatch] = useContext(UserContext);
 
   const [formLogin, setFormLogin] = useState({
     email: "",
@@ -35,14 +35,6 @@ function LoginModal() {
       const response = await API.post("/login", formLogin);
 
       console.log("Login Berhasil : ", response);
-
-      const alert = <SuccessAlert title={"Login Success! 😊"} />;
-      setMessage(alert);
-      setFormLogin({
-        email: "",
-        password: "",
-      });
-
       // Masukin status succes login ke UserContext
       setTimeout(() => {
         // Send data to UserContext
@@ -50,10 +42,16 @@ function LoginModal() {
           type: "LOGIN_SUCCESS",
           payload: response.data.data,
         });
-
         setAuthToken(localStorage.token);
         navigate("/home");
-      }, 2000);
+      }, 1000);
+
+      const alert = <SuccessAlert title={"Login Success! 😊"} />;
+      setMessage(alert);
+      setFormLogin({
+        email: "",
+        password: "",
+      });
     } catch (error) {
       const alert = (
         <ErrorAlert

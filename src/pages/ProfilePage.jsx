@@ -12,8 +12,6 @@ function ProfilePage() {
   const [state, _] = useContext(UserContext);
   const navigate = useNavigate();
 
-  console.log(state.user.id);
-
   const [profile, setProfile] = useState();
 
   // Fetching data user from database
@@ -21,15 +19,15 @@ function ProfilePage() {
     const response = await API.get(`/user/${state.user.id}`);
     return response.data.data;
   });
+  console.log(users);
 
   // Fetching data user from database
-  let { data: posts } = useQuery("postsCache", async () => {
+  let { data: posts } = useQuery("postCache", async () => {
     const response = await API.get(`/user/${state.user.id}/posts`);
     return response.data.data;
   });
 
   console.log(posts);
-
   return (
     <>
       <Navbar />
@@ -102,7 +100,7 @@ function ProfilePage() {
               {/* CARD LIST POST */}
               {posts?.map((item, index) => (
                 <div key={index} className="card w-80 shadow-xl mb-2">
-                  {item.photos?.map((item, index) => (
+                  {item?.photos.map((item, index) => (
                     <img
                       src={item.image}
                       alt={index}
