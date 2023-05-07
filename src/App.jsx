@@ -69,9 +69,9 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           {/* Bisa Diakses Kalo udah Login */}
           <Route element={<PrivateRouteLogin />}>
+            <Route path="/post/:id" element={<DetailPost />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/detail/:id" element={<DetailPost />} />
             <Route path="/user/:id" element={<UserPage />} />
             <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/upload-post" element={<UploadPost />} />

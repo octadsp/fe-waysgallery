@@ -18,8 +18,6 @@ function HomePage() {
     return response.data.data;
   });
 
-  console.log(posts);
-
   const handlePageListChange = (e) => {
     setTitle(e.target.value);
   };
@@ -59,8 +57,8 @@ function HomePage() {
         <div className="grid grid-cols-5 grid-flow-cols gap-5">
           {/* Card */}
           {posts?.map((item, index) => (
-            <Link to={`/post/${item.id}`}>
-              <div key={index}>
+            <Link to={`/post/` + item.id} key={index}>
+              <div>
                 <CardPost image={item.photos[0].image} />
               </div>
               {/* <CardPost image={Cogan} /> */}

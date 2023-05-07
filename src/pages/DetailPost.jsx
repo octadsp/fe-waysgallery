@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Project1 from "../assets/project1.png";
 import ArtProfile from "../assets/artProfile.png";
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import { API } from "../config/api";
 
 function DetailPost() {
+  const { id } = useParams();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleImageClick = (index) => {
+    setActiveIndex(index);
+  };
+
+  let { data: posts } = useQuery("postsDetailCache", async () => {
+    const response = await API.get(`post/${id}`, id);
+    return response.data.data;
+  });
   return (
     <>
       <Navbar />
@@ -15,16 +29,16 @@ function DetailPost() {
             {/* AVATAR */}
             <div className="avatar mr-5">
               <div className="w-14 rounded-full ring ring-neutral-700 ring-offset-base-100 ring-offset-1">
-                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
+                <img src={posts.user.image} />
               </div>
             </div>
             {/* PROFILE INFO */}
             <div className="flex flex-col justify-around py-1">
               <div>
-                <h1 className="font-bold">TITLE</h1>
+                <h1 className="font-bold">{posts.title}</h1>
               </div>
               <div>
-                <p className="font-light text-sm">User Name Info</p>
+                <p className="font-light text-sm">{posts.user.fullName}</p>
               </div>
             </div>
           </div>
@@ -41,29 +55,36 @@ function DetailPost() {
         {/* IMAGE POST */}
         <div className="mt-10 w-full mx-auto">
           <div className="carousel h-[650px]">
-            <div id="item1" className="carousel-item w-full">
-              <img src={Project1} className="w-full" />
-            </div>
-            <div id="item2" className="carousel-item w-full">
-              <img src={ArtProfile} className="w-full" />
-            </div>
+            {posts.photos.map((item, index) => {
+              if (index === activeIndex) {
+                return (
+                  <div key={index} className="carousel-item w-full">
+                    <img src={item.image} className="w-full" />
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            })}
           </div>
           <div className="carousel flex justify-start mt-5 mx-5 gap-5">
-            <a href="#item1" className="carousel-item">
-              <img src={Project1} className="h-32 w-32 object-cover" />
-            </a>
-            <a href="#item2" className="carousel-item">
-              <img src={ArtProfile} className="h-32 w-32 object-cover" />
-            </a>
+            {posts.photos.map((item, index) => (
+              <a
+                onClick={() => setActiveIndex(index)}
+                className="carousel-item"
+              >
+                <img src={item.image} className="h-32 w-32 object-cover" />
+              </a>
+            ))}
           </div>
         </div>
         {/* DESCRIPTION POST */}
         <div className="mt-7">
           <p className="font-bold">
             👋 Say Hello&nbsp;
-            <span className="text-light-green">email user</span>
+            <span className="text-light-green">{posts.user.email}</span>
           </p>
-          <p className="mt-7">Description post</p>
+          <p className="mt-7">{posts.description}</p>
         </div>
       </div>
     </>
