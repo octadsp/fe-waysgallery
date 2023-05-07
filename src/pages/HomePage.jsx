@@ -13,7 +13,7 @@ function HomePage() {
   const [title, setTitle] = useState("today");
 
   // Fetching data posts from database
-  let { data: posts, refetch } = useQuery("postsCache", async () => {
+  let { data: posts } = useQuery("postsCache", async () => {
     const response = await API.get("/posts");
     return response.data.data;
   });

@@ -18,8 +18,6 @@ function LoginModal() {
     password: "",
   });
 
-  console.log(formLogin);
-
   const { email, password } = formLogin;
 
   // Masukin setiap perubahan inputan berdasarkan target name kemudian value nya apa
@@ -29,7 +27,6 @@ function LoginModal() {
       [e.target.name]: e.target.value,
     });
   };
-  
 
   const handleOnSubmit = useMutation(async (e) => {
     try {
@@ -56,7 +53,7 @@ function LoginModal() {
 
         setAuthToken(localStorage.token);
         navigate("/home");
-      });
+      }, 2000);
     } catch (error) {
       const alert = (
         <ErrorAlert

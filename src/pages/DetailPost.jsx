@@ -17,10 +17,12 @@ function DetailPost() {
     setActiveIndex(index);
   };
 
-  let { data: posts } = useQuery("postsDetailCache", async () => {
-    const response = await API.get(`post/${id}`, id);
+  let { data: posts, refetch } = useQuery("postsDetailCache", async () => {
+    const response = await API.get(`post/` + id);
+    console.log(response);
     return response.data.data;
   });
+
   return (
     <>
       <Navbar />
@@ -54,7 +56,10 @@ function DetailPost() {
                 <button className="px-2">Follow</button>
               </div>
               <div className="btn btn-sm bg-light-green border-none hover:font-bold hover:ring-2 hover:ring-light-green">
-                <button onClick={() => navigate(`/order/${posts.id}`)} className="px-4">
+                <button
+                  onClick={() => navigate(`/order/${posts.id}`)}
+                  className="px-4"
+                >
                   Hire
                 </button>
               </div>
