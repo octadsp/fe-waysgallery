@@ -6,8 +6,20 @@ import Cogan from "../assets/cogan.jpg";
 import CardPost from "../components/CardPost";
 import { Link } from "react-router-dom";
 
+import { API } from "../config/api";
+import { useQuery } from "react-query";
+
 function HomePage() {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState("today");
+
+  // Fetching data posts from database
+  let { data: posts, refetch } = useQuery("postsCache", async () => {
+    const response = await API.get("/posts");
+    return response.data.data;
+  });
+
+  console.log(posts);
+
   const handlePageListChange = (e) => {
     setTitle(e.target.value);
   };
@@ -46,9 +58,14 @@ function HomePage() {
         {/* Content */}
         <div className="grid grid-cols-5 grid-flow-cols gap-5">
           {/* Card */}
-          <Link>
-            <CardPost image={Cogan} />
-          </Link>
+          {posts?.map((item, index) => (
+            <Link to={`/post/${item.id}`}>
+              <div key={index}>
+                <CardPost image={item.photos[0].image} />
+              </div>
+              {/* <CardPost image={Cogan} /> */}
+            </Link>
+          ))}
         </div>
       </div>
     </>
