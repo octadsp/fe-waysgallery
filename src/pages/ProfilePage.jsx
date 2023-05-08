@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "../components/Navbar";
 import ImgContainer from "../assets/imgContainer.png";
-import ArtImage from "../assets/artProfile.png";
-import Project1 from "../assets/Project1.png";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
-import { API, setAuthToken } from "../config/api";
+import { API } from "../config/api";
 import { useQuery } from "react-query";
 
 function ProfilePage() {

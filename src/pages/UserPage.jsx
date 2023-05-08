@@ -1,9 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import ImgContainer from "../assets/imgContainer.png";
-import ArtImage from "../assets/artProfile.png";
-import Project1 from "../assets/Project1.png";
-import { Carousel } from "flowbite-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { API } from "../config/api";
 import { useQuery } from "react-query";

@@ -1,13 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import HomeImage from "../assets/project1.png";
-import Art from "../assets/artProfile.png";
-import Cogan from "../assets/cogan.jpg";
 import CardPost from "../components/CardPost";
 import { Link } from "react-router-dom";
 
 import { API } from "../config/api";
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { UserContext } from "../context/UserContext";
 
 function HomePage() {

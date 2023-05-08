@@ -3,7 +3,7 @@ import axios from "axios";
 // Create base URL API
 export const API = axios.create({
   // baseURL: import.meta.env.VITE_BASE_API_URL,
-  baseURL: "http://localhost:5000/api/v1",
+  baseURL: import.meta.env.VITE_BASE_API_URL,
 });
 
 // Set Authorization Token Header

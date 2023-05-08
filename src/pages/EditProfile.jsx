@@ -4,10 +4,7 @@ import CameraIcon from "../assets/cameraIcon.png";
 import { UserContext } from "../context/UserContext";
 import { useMutation } from "react-query";
 import { API } from "../config/api";
-import { Avatar } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
-import SuccessAlert from "../components/SuccessAlert";
-import ErrorAlert from "../components/ErrorAlert";
 
 function EditProfile() {
   const [state] = useContext(UserContext);
@@ -158,7 +155,7 @@ function EditProfile() {
                 </p>
               </div>
             </button>
-            <div className=" pl-20 pt-10" >
+            <div className=" pl-20 pt-10">
               <button
                 disabled={handleAddArt.isLoading === true}
                 type="submit"

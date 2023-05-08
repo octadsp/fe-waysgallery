@@ -1,9 +1,7 @@
 import React, { useContext, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import CloudIcon from "../assets/cloudIcon.png";
-import PlusIcon from "../assets/plusIcon.png";
 import { useNavigate } from "react-router-dom";
-
 import { UserContext } from "../context/UserContext";
 import { API } from "../config/api";
 import { useMutation } from "react-query";
@@ -12,11 +10,6 @@ function UploadPost() {
   const [state, _] = useContext(UserContext);
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
-
-  const [preview1, setPreview1] = useState(null);
-  const [preview2, setPreview2] = useState(null);
-  const [preview3, setPreview3] = useState(null);
-  const [preview4, setPreview4] = useState(null);
   const [preview, setPreview] = useState(null);
 
   const [formPost, setFormPost] = useState({
@@ -170,8 +163,12 @@ function UploadPost() {
             </div>
             <div>
               <div className="btn btn-sm px-9 border-none hover:bg-light-gray hover:text-neutral-900 hover:ring-2 hover:ring-neutral-600 bg-light-green text-neutral-50 hover:text-lg">
-                <button disabled={handleAddForm.isLoading} type="submit" className="font-bold">
-                  {handleAddForm.isLoading ? "wait..." : "Post" }
+                <button
+                  disabled={handleAddForm.isLoading}
+                  type="submit"
+                  className="font-bold"
+                >
+                  {handleAddForm.isLoading ? "wait..." : "Post"}
                 </button>
               </div>
             </div>

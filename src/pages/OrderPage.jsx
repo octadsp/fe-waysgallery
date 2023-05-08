@@ -1,7 +1,5 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import Project1 from "../assets/project1.png";
-import ArtProfile from "../assets/artProfile.png";
 import { useNavigate, useParams } from "react-router-dom";
 
 function OrderPage() {
