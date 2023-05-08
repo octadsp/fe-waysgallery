@@ -5,6 +5,7 @@ import { UserContext } from "../context/UserContext";
 import { useMutation } from "react-query";
 import { API } from "../config/api";
 import { useNavigate } from "react-router-dom";
+import SuccessAlert from "../components/SuccessAlert";
 
 function EditProfile() {
   const [state] = useContext(UserContext);
@@ -82,10 +83,13 @@ function EditProfile() {
       const responseArt = await API.post("/art", formArtImage, config);
       console.log("success update profile :", responseArt);
 
-      // const alert = <SuccessAlert title={"Success Add Art ! 👌"} />;
-      // setTimeout(() => {
-      //   setMessage(alert);
-      // }, 2000);
+      const alert = <SuccessAlert title={"Success Add Art ! 👌"} />;
+      setMessage(alert);
+
+      setTimeout(() => {
+        navigate("/home");
+      }, 2000);
+
       console.log("Success add Art : ", responseArt);
     } catch (error) {
       // const alert = <ErrorAlert title={"Error, please check again"} />;
@@ -136,6 +140,7 @@ function EditProfile() {
         {/* LEFT CONTENT */}
         <div>
           <form onSubmit={(e) => handleAddArt.mutate(e)}>
+            {message && message}
             <input
               type="file"
               name="image"

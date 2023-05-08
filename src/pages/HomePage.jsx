@@ -59,7 +59,7 @@ function HomePage() {
                 name="image"
                 form="image"
                 type="text"
-                className="border-navbar-line bg-navbar rounded-xl hover:border-primary hover:border-1"
+                className="bg-navbar p-2 ring-2 ring-light-green rounded-2xl hover:ring-primary"
                 placeholder="Search"
               />
             </div>
