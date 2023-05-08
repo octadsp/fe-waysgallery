@@ -102,7 +102,7 @@ function ProfilePage() {
                 </div>
 
                 {/* BUTTON EDIT PROFILE */}
-                <div className="pb-10 pt-4">
+                <div className="pb-5 pt-4">
                   <button
                     onClick={() => navigate("/edit-profile")}
                     className="btn btn-sm border-none w-30 bg-light-green text-xs px-5 hover:ring-2 hover:bg-base-200 hover:text-neutral-900 hover:ring-light-green"
@@ -113,13 +113,13 @@ function ProfilePage() {
               </div>
             </div>
             {/* RIGHT ART IMAGE */}
-            <div className="w-6/12 z-10 mr-16">
+            <div className="w-5/12 z-10 mr-20">
               <div className="carousel rounded-box">
                 {users.arts?.map((item, index) => (
                   <div key={index} className="carousel-item w-full">
                     <img
                       src={item.image}
-                      className="w-full"
+                      className="w-full object-fill "
                       alt="Tailwind CSS Carousel component"
                     />
                   </div>
@@ -132,7 +132,7 @@ function ProfilePage() {
         {/* POST */}
         <div>
           {/* TITLE */}
-          <div className="mt-5 ml-20">
+          <div className="ml-20">
             <h1 className="text-xl font-bold">My Works</h1>
           </div>
           {/* LIST POST */}

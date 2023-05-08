@@ -158,11 +158,11 @@ function EditProfile() {
                 </p>
               </div>
             </button>
-            <div>
+            <div className=" pl-20 pt-10" >
               <button
                 disabled={handleAddArt.isLoading === true}
                 type="submit"
-                className="btn font-bold bg-primary"
+                className="btn font-bold bg-light-green hover:ring-2 hover:ring-light-green"
               >
                 {handleAddArt.isLoading ? "wait..." : "Add Art"}
               </button>
