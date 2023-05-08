@@ -2,8 +2,11 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Project1 from "../assets/project1.png";
 import ArtProfile from "../assets/artProfile.png";
+import { useNavigate, useParams } from "react-router-dom";
 
 function OrderPage() {
+  const { id } = useParams();
+  const navigate = useNavigate();
   return (
     <>
       <Navbar />
@@ -72,7 +75,9 @@ function OrderPage() {
         {/* BUTTON */}
         <div className="flex justify-center mt-14 gap-5">
           <div className="btn btn-sm border-none w-30 font-bold bg-light-gray text-sm hover:text-lg text-neutral-900 hover:bg-error px-7 hover:ring-light-green hover:ring-2 hover:text-neutral-50">
-            <button className="px-5">Cancel</button>
+            <button onClick={() => navigate(`/post/${id}`)} className="px-5">
+              Cancel
+            </button>
           </div>
           <div className="btn btn-sm w-30 border-none font-bold bg-light-green text-sm hover:text-lg px-10 hover:ring-2 hover:ring-light-green">
             <button className="px-1">Binding</button>

@@ -36,6 +36,7 @@ function ProfilePage() {
   if (usersError) {
     return <h2>Fetching user error !</h2>;
   }
+  console.log(users);
 
   // Fetching data user from database
   let {
@@ -114,13 +115,15 @@ function ProfilePage() {
             {/* RIGHT ART IMAGE */}
             <div className="w-6/12 z-10 mr-16">
               <div className="carousel rounded-box">
-                <div className="carousel-item w-full">
-                  <img
-                    src={ArtImage}
-                    className="w-full"
-                    alt="Tailwind CSS Carousel component"
-                  />
-                </div>
+                {users.arts?.map((item, index) => (
+                  <div key={index} className="carousel-item w-full">
+                    <img
+                      src={item.image}
+                      className="w-full"
+                      alt="Tailwind CSS Carousel component"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>

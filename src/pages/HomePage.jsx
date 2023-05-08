@@ -78,9 +78,12 @@ function HomePage() {
           {searchPosts?.map((item, index) => (
             <Link to={`/post/` + item.id} key={index}>
               <div className="">
-                <CardPost image={item.photos[0].image} />
+                {item.photos?.map((item, index) => (
+                  <div key={index}>
+                    <CardPost image={item.image} />
+                  </div>
+                ))}
               </div>
-              {/* <CardPost image={Cogan} /> */}
             </Link>
           ))}
         </div>

@@ -6,24 +6,36 @@ import { useMutation } from "react-query";
 import { API } from "../config/api";
 import { Avatar } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
+import SuccessAlert from "../components/SuccessAlert";
+import ErrorAlert from "../components/ErrorAlert";
 
 function EditProfile() {
   const [state] = useContext(UserContext);
   const [preview, setPreview] = useState(null);
   const navigate = useNavigate();
+  const [message, setMessage] = useState(null);
   const [editProfile, setEditProfile] = useState({
     fullName: "",
     greeting: "",
     image: "",
   });
 
+  const [editArt, setEditArt] = useState({
+    image: "",
+    user_id: state.user.id,
+  });
+
   const fileInputAvatar = useRef(null);
+  const fileInputArt = useRef(null);
 
   const handleInputAvatar = () => {
     fileInputAvatar.current.click();
   };
+  const handleInputArt = () => {
+    fileInputArt.current.click();
+  };
 
-  const { fullName, greeting, image } = editProfile;
+  const { fullName, greeting } = editProfile;
 
   // Masukin setiap perubahan inputan berdasarkan target name kemudian value nya apa
   const handleOnChange = (e) => {
@@ -39,6 +51,53 @@ function EditProfile() {
       setPreview(url);
     }
   };
+
+  // Masukin setiap perubahan inputan berdasarkan target name kemudian value nya apa
+  const handleOnChangeArt = (e) => {
+    setEditArt({
+      ...editArt,
+      [e.target.name]:
+        e.target.type === "file" ? e.target.files : e.target.value,
+    });
+
+    // Create image url for preview
+    if (e.target.type === "file") {
+      let url = URL.createObjectURL(e.target.files[0]);
+      setPreview(url);
+    }
+  };
+
+  const handleAddArt = useMutation(async (e) => {
+    try {
+      e.preventDefault();
+
+      // Configuration
+      const config = {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      };
+
+      const formArtImage = new FormData();
+      formArtImage.set("image", editArt.image[0], editArt.image[0].name);
+      formArtImage.set("user_id", editArt.user_id);
+
+      const responseArt = await API.post("/art", formArtImage, config);
+      console.log("success update profile :", responseArt);
+
+      // const alert = <SuccessAlert title={"Success Add Art ! 👌"} />;
+      // setTimeout(() => {
+      //   setMessage(alert);
+      // }, 2000);
+      console.log("Success add Art : ", responseArt);
+    } catch (error) {
+      // const alert = <ErrorAlert title={"Error, please check again"} />;
+      // setTimeout(() => {
+      //   setMessage(alert);
+      // }, 2000);
+      console.log("Failed add Art : ", error);
+    }
+  });
 
   const handleAddForm = useMutation(async (e) => {
     try {
@@ -78,13 +137,37 @@ function EditProfile() {
       {/* CONTENT */}
       <div className="flex justify-center h-[600px] mx-auto">
         {/* LEFT CONTENT */}
-        <div className="flex justify-center items-center h-full w-1/2">
-          <div className=" p-56 hover:p-60 border-4 border-dashed border-dot-line rounded-lg duration-200 ease-in-out">
-            <p className="text-xl">
-              <span className="text-light-green font-bold">Upload</span>
-              &nbsp;Best Your Art
-            </p>
-          </div>
+        <div>
+          <form onSubmit={(e) => handleAddArt.mutate(e)}>
+            <input
+              type="file"
+              name="image"
+              form="image"
+              hidden
+              onChange={handleOnChangeArt}
+              ref={fileInputArt}
+            />
+            <button
+              onClick={handleInputArt}
+              className="flex justify-center items-center h-full w-1/2"
+            >
+              <div className=" p-56 hover:p-60 border-4 border-dashed border-dot-line rounded-lg duration-200 ease-in-out">
+                <p className="text-xl">
+                  <span className="text-light-green font-bold">Upload</span>
+                  &nbsp;Best Your Art
+                </p>
+              </div>
+            </button>
+            <div>
+              <button
+                disabled={handleAddArt.isLoading === true}
+                type="submit"
+                className="btn font-bold bg-primary"
+              >
+                {handleAddArt.isLoading ? "wait..." : "Add Art"}
+              </button>
+            </div>
+          </form>
         </div>
 
         {/* RIGHT CONTENT */}
