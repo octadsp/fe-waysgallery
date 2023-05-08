@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import HomeImage from "../assets/project1.png";
 import Art from "../assets/artProfile.png";
@@ -7,19 +7,34 @@ import CardPost from "../components/CardPost";
 import { Link } from "react-router-dom";
 
 import { API } from "../config/api";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { UserContext } from "../context/UserContext";
 
 function HomePage() {
   const [state] = useContext(UserContext);
   const [title, setTitle] = useState("today");
+  const [search, setSearch] = useState("");
+  const [searchPosts, setSearchPost] = useState([]);
 
+  console.log("ini searchPosts :", searchPosts);
   // Fetching data posts from database
   let { data: posts } = useQuery("postsCache", async () => {
     const response = await API.get("/posts");
     return response.data.data;
   });
-  console.log(posts);
+
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      const response = await API.get(`/posts/search?title=${search}`);
+      setSearchPost(response.data.data);
+    };
+
+    fetchSearchResults();
+  }, [search]);
+
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
 
   const handlePageListChange = (e) => {
     setTitle(e.target.value);
@@ -42,6 +57,7 @@ function HomePage() {
           <div className="flex items-center w-48">
             <div className="flex items-center">
               <input
+                onChange={handleSearch}
                 id="image"
                 name="image"
                 form="image"
@@ -59,7 +75,7 @@ function HomePage() {
         {/* Content */}
         <div className="grid grid-cols-5 grid-flow-cols gap-5">
           {/* Card */}
-          {posts?.map((item, index) => (
+          {searchPosts?.map((item, index) => (
             <Link to={`/post/` + item.id} key={index}>
               <div className="">
                 <CardPost image={item.photos[0].image} />
