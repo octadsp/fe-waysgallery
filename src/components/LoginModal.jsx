@@ -35,6 +35,13 @@ function LoginModal() {
       const response = await API.post("/login", formLogin);
 
       console.log("Login Berhasil : ", response);
+
+      const alert = <SuccessAlert title={"Login Success! 😊"} />;
+      setMessage(alert);
+      setFormLogin({
+        email: "",
+        password: "",
+      });
       // Masukin status succes login ke UserContext
       setTimeout(() => {
         // Send data to UserContext
@@ -43,15 +50,8 @@ function LoginModal() {
           payload: response.data.data,
         });
         setAuthToken(localStorage.token);
-        navigate("/home");
-      }, 1000);
-
-      const alert = <SuccessAlert title={"Login Success! 😊"} />;
-      setMessage(alert);
-      setFormLogin({
-        email: "",
-        password: "",
-      });
+        window.location.reload()
+      }, 2000);
     } catch (error) {
       const alert = (
         <ErrorAlert

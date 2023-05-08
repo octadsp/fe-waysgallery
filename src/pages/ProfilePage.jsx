@@ -1,33 +1,66 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import ImgContainer from "../assets/imgContainer.png";
 import ArtImage from "../assets/artProfile.png";
 import Project1 from "../assets/Project1.png";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
-import { API } from "../config/api";
+import { API, setAuthToken } from "../config/api";
 import { useQuery } from "react-query";
 
 function ProfilePage() {
-  const [state, _] = useContext(UserContext);
+  const [state] = useContext(UserContext);
   const navigate = useNavigate();
 
   const [profile, setProfile] = useState();
 
   // Fetching data user from database
-  let { data: users } = useQuery("usersCache", async () => {
-    const response = await API.get(`/user/${state.user.id}`);
-    return response.data.data;
-  });
-  console.log(users);
+  let {
+    data: users,
+    isLoading: usersLoading,
+    isError: usersError,
+  } = useQuery(
+    "usersProfileCache",
+    async () => {
+      const response = await API.get(`/user/${state.user.id}`);
+      return response.data.data;
+    },
+    {
+      staleTime: 1000 * 30,
+    }
+  );
+
+  if (usersLoading) {
+    return <h2>Loading . . .</h2>;
+  }
+  if (usersError) {
+    return <h2>Fetching user error !</h2>;
+  }
 
   // Fetching data user from database
-  let { data: posts } = useQuery("postCache", async () => {
-    const response = await API.get(`/user/${state.user.id}/posts`);
-    return response.data.data;
-  });
+  let {
+    data: posts,
+    isLoading: postsLoading,
+    isError: postsError,
+  } = useQuery(
+    "postsProfileCache",
+    async () => {
+      const response = await API.get(`/user/${state.user.id}/posts`);
+      return response.data.data;
+    },
+    {
+      staleTime: 1000 * 30,
+    }
+  );
 
-  console.log(posts);
+  if (postsLoading) {
+    return <h2>Loading . . .</h2>;
+  }
+
+  if (postsError) {
+    return <h2>Fetching post user error !</h2>;
+  }
+
   return (
     <>
       <Navbar />
@@ -45,13 +78,19 @@ function ProfilePage() {
               <div className="flex flex-col w-full">
                 <div className="avatar">
                   <div className="w-24 rounded-full ring ring-light-green ring-offset-base-100 ring-offset-1">
-                    <img src={users.image} />
+                    {usersLoading ? <h1>Wait</h1> : <img src={users.image} />}
                   </div>
                 </div>
 
                 {/* NAMA PROFILE */}
                 <div>
-                  <h1 className="font-bold text-xl mt-5 ">{users.fullName}</h1>
+                  {usersLoading ? (
+                    <h1>wait</h1>
+                  ) : (
+                    <h1 className="font-bold text-xl mt-5 ">
+                      {users.fullName}
+                    </h1>
+                  )}
                 </div>
 
                 {/* TITLE ART */}
@@ -99,13 +138,15 @@ function ProfilePage() {
             <div className="grid grid-cols-5 gap-3 mx-20">
               {/* CARD LIST POST */}
               {posts?.map((item, index) => (
-                <div key={index} className="card w-80 shadow-xl mb-2">
+                <div key={index} className="card h-3/4 shadow-xl mb-2">
                   {item?.photos.map((item, index) => (
-                    <img
-                      src={item.image}
-                      alt={index}
-                      className="hover:opacity-70 h-full w-full object-cover"
-                    />
+                    <div key={index} className="h-full rounded-xl w-full">
+                      <img
+                        src={item.image}
+                        alt={index}
+                        className="hover:opacity-70 h-full w-full rounded-xl object-cover"
+                      />
+                    </div>
                   ))}
                 </div>
               ))}

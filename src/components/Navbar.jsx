@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
 function Navbar() {
-  const [state, _] = useContext(UserContext)
+  const [state, _] = useContext(UserContext);
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
     // Back to Landing Page
-    navigate("/");
+    navigate("/auth");
   };
   return (
     <>

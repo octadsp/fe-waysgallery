@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import Project1 from "../assets/project1.png";
-import ArtProfile from "../assets/artProfile.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { API } from "../config/api";
@@ -17,11 +15,14 @@ function DetailPost() {
     setActiveIndex(index);
   };
 
-  let { data: posts, refetch } = useQuery("postsDetailCache", async () => {
+  let { data: posts, isLoading } = useQuery("postsDetailCache", async () => {
     const response = await API.get(`/post/` + id);
-    console.log(response);
     return response.data.data;
   });
+
+  if (isLoading) {
+    return <h1>Loading . . .</h1>;
+  }
 
   return (
     <>
@@ -69,7 +70,7 @@ function DetailPost() {
         {/* IMAGE POST */}
         <div className="mt-10 w-full mx-auto">
           <div className="carousel h-[650px]">
-            {posts.photos.map((item, index) => {
+            {posts?.photos?.map((item, index) => {
               if (index === activeIndex) {
                 return (
                   <div key={index} className="carousel-item w-full">
@@ -82,7 +83,7 @@ function DetailPost() {
             })}
           </div>
           <div className="carousel flex justify-start mt-5 mx-5 gap-5">
-            {posts.photos.map((item, index) => (
+            {posts?.photos?.map((item, index) => (
               <a
                 onClick={() => setActiveIndex(index)}
                 className="carousel-item"

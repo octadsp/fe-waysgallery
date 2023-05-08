@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "../components/Navbar";
 import HomeImage from "../assets/project1.png";
 import Art from "../assets/artProfile.png";
@@ -8,8 +8,10 @@ import { Link } from "react-router-dom";
 
 import { API } from "../config/api";
 import { useQuery } from "react-query";
+import { UserContext } from "../context/UserContext";
 
 function HomePage() {
+  const [state] = useContext(UserContext);
   const [title, setTitle] = useState("today");
 
   // Fetching data posts from database
@@ -59,11 +61,11 @@ function HomePage() {
           {/* Card */}
           {posts?.map((item, index) => (
             <Link to={`/post/` + item.id} key={index}>
-              <div>
+              <div className="">
                 <CardPost image={item.photos[0].image} />
               </div>
-          {/* <CardPost image={Cogan} /> */}
-          </Link>
+              {/* <CardPost image={Cogan} /> */}
+            </Link>
           ))}
         </div>
       </div>

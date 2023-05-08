@@ -56,7 +56,9 @@ function App() {
     // Redirect Auth but just when isLoading is false
     if (!isLoading) {
       if (state.isLogin === false) {
-        navigate("/");
+        navigate("/auth");
+      } else {
+        navigate("/home");
       }
     }
   }, [isLoading]);
@@ -66,11 +68,11 @@ function App() {
       {isLoading ? null : (
         <Routes>
           {/* Bisa Diakses Global */}
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/auth" element={<LandingPage />} />
           {/* Bisa Diakses Kalo udah Login */}
           <Route element={<PrivateRouteLogin />}>
-            <Route path="/post/:id" element={<DetailPost />} />
             <Route path="/home" element={<HomePage />} />
+            <Route path="/post/:id" element={<DetailPost />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/user/:id" element={<UserPage />} />
             <Route path="/edit-profile" element={<EditProfile />} />
