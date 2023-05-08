@@ -1,9 +1,9 @@
 import React from "react";
 
 // Assets
-import WaveBottomRight from "../assets/WaveBottomRight.png";
-import WaveBottomLeft from "../assets/WaveBottomLeft.png";
-import WaveTopLeft from "../assets/WaveTopLeft.png";
+import WaveBottomRight from "../assets/waveBottomRight.png";
+import WaveBottomLeft from "../assets/waveBottomLeft.png";
+import WaveTopLeft from "../assets/waveTopLeft.png";
 import LogoWaysGallery from "../assets/logoWaysGallery.png";
 import LandingImage from "../assets/landingImg.png";
 import LogoGallery from "../assets/logoGallery.png";
