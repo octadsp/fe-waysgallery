@@ -1,18 +1,27 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import Navbar from "../components/Navbar";
 import CameraIcon from "../assets/cameraIcon.png";
 import { UserContext } from "../context/UserContext";
 import { useMutation } from "react-query";
 import { API } from "../config/api";
+import { Avatar } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
 
 function EditProfile() {
   const [state] = useContext(UserContext);
   const [preview, setPreview] = useState(null);
+  const navigate = useNavigate();
   const [editProfile, setEditProfile] = useState({
     fullName: "",
     greeting: "",
     image: "",
   });
+
+  const fileInputAvatar = useRef(null);
+
+  const handleInputAvatar = () => {
+    fileInputAvatar.current.click();
+  };
 
   const { fullName, greeting, image } = editProfile;
 
@@ -84,17 +93,22 @@ function EditProfile() {
           className="flex flex-col items-center h-full pt-16 w-1/4"
         >
           {/* FOTO PROFILE */}
-          <div className="avatar mb-10">
-            <div className="w-40 rounded-full border-4 border-dot-line border-dashed hover:border-light-green hover:w-48 duration-200 ease-in-out">
-              <img src={CameraIcon} className="scale-50" />
-            </div>
-          </div>
           <input
             type="file"
-            onChange={handleOnChange}
             name="image"
             form="image"
+            hidden
+            onChange={handleOnChange}
+            ref={fileInputAvatar}
           />
+          <div className="avatar mb-10">
+            <button
+              onClick={handleInputAvatar}
+              className="w-40 rounded-full border-4 border-dot-line border-dashed hover:border-light-green hover:w-48 duration-200 ease-in-out"
+            >
+              <img src={CameraIcon} className="scale-50" />
+            </button>
+          </div>
 
           {/* FORM INPUT */}
           <div className="w-full">
@@ -119,8 +133,12 @@ function EditProfile() {
           </div>
           {/* BUTTON SAVE */}
           <div className="btn btn-sm px-8 border-none hover:bg-light-gray hover:text-neutral-900 hover:ring-2 hover:ring-neutral-600 bg-light-green text-neutral-50 hover:text-lg">
-            <button type="submit" className="font-bold">
-              Save
+            <button
+              disabled={handleAddForm.isLoading === true}
+              type="submit"
+              className="font-bold"
+            >
+              {handleAddForm.isLoading ? "changes.." : "Save"}
             </button>
           </div>
         </form>

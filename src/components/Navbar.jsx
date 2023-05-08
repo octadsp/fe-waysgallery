@@ -6,9 +6,29 @@ import LogoutIcon from "../assets/logout.png";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
+import { API } from "../config/api";
+import { useQuery } from "react-query";
+
 function Navbar() {
   const [state, _] = useContext(UserContext);
   const navigate = useNavigate();
+
+  // Fetching data user from database
+  let {
+    data: users,
+    isLoading: usersLoading,
+    isError: usersError,
+  } = useQuery(
+    "usersProfileNavbarCache",
+    async () => {
+      const response = await API.get(`/user/${state.user.id}`);
+      return response.data.data;
+    },
+    {
+      staleTime: 1000 * 30,
+    }
+  );
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     // Back to Landing Page
@@ -38,7 +58,7 @@ function Navbar() {
             <div className="dropdown dropdown-end dropdown-hover">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-32 hover:ring-neutral-500 rounded-full ring ring-light-green ring-offset-base-100 ring-offset-1">
-                  <img src={state.user.image} />
+                  {usersLoading ? <h1>...</h1> : <img src={users.image} />}
                 </div>
               </label>
 

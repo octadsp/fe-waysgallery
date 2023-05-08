@@ -85,6 +85,7 @@ function DetailPost() {
           <div className="carousel flex justify-start mt-5 mx-5 gap-5">
             {posts?.photos?.map((item, index) => (
               <a
+              key={index}
                 onClick={() => setActiveIndex(index)}
                 className="carousel-item"
               >
