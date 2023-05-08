@@ -4,8 +4,61 @@ import ImgContainer from "../assets/imgContainer.png";
 import ArtImage from "../assets/artProfile.png";
 import Project1 from "../assets/Project1.png";
 import { Carousel } from "flowbite-react";
+import { useNavigate, useParams } from "react-router-dom";
+import { API } from "../config/api";
+import { useQuery } from "react-query";
 
 function UserPage() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  // Fetching data user from database
+  let {
+    data: user,
+    isLoading: userLoading,
+    isError: userError,
+  } = useQuery(
+    "userProfileCache",
+    async () => {
+      const response = await API.get("/user/" + id);
+      return response.data.data;
+    },
+    {
+      staleTime: 1000 * 30,
+    }
+  );
+
+  if (userLoading) {
+    return <h2>Loading . . .</h2>;
+  }
+  if (userError) {
+    return <h2>Fetching user error !</h2>;
+  }
+
+  // Fetching data post user from database
+  let {
+    data: post,
+    isLoading: postLoading,
+    isError: postError,
+  } = useQuery(
+    "postProfileCache",
+    async () => {
+      const response = await API.get(`/user/${id}/posts`);
+      return response.data.data;
+    },
+    {
+      staleTime: 1000 * 30,
+    }
+  );
+
+  if (postLoading) {
+    return <h2>Loading . . .</h2>;
+  }
+
+  if (postError) {
+    return <h2>Fetching post user error !</h2>;
+  }
+
   return (
     <>
       <Navbar />
@@ -23,19 +76,23 @@ function UserPage() {
               <div className="flex flex-col w-full">
                 <div className="avatar">
                   <div className="w-24 rounded-full ring ring-light-green ring-offset-base-100 ring-offset-1">
-                    <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />
+                    {userLoading ? <h1>Wait</h1> : <img src={user.image} />}
                   </div>
                 </div>
 
                 {/* NAMA PROFILE */}
                 <div>
-                  <h1 className="font-bold text-xl mt-5 ">Ucup Ganteng</h1>
+                  {userLoading ? (
+                    <h1>wait</h1>
+                  ) : (
+                    <h1 className="font-bold text-xl mt-5 ">{user.fullName}</h1>
+                  )}
                 </div>
 
                 {/* TITLE ART */}
                 <div>
                   <h1 className="font-bold text-6xl h-44 mr-20 mt-5">
-                    Hey, Thanks for Looking
+                    {user.greeting}
                   </h1>
                 </div>
 
@@ -47,7 +104,10 @@ function UserPage() {
                     </button>
                   </div>
                   <div>
-                    <button className="btn btn-sm w-30 border-none bg-light-green text-xs px-10 hover:ring-2 hover:bg-base-200 hover:text-neutral-900 hover:ring-light-green">
+                    <button
+                      onClick={() => navigate(`/order/` + id)}
+                      className="btn btn-sm w-30 border-none bg-light-green text-xs px-10 hover:ring-2 hover:bg-base-200 hover:text-neutral-900 hover:ring-light-green"
+                    >
                       Hire
                     </button>
                   </div>
@@ -80,16 +140,26 @@ function UserPage() {
         <div>
           {/* TITLE */}
           <div className="mt-5 ml-20">
-            <h1 className="text-xl font-bold">Ucup Works</h1>
+            <h1 className="text-xl font-bold">{user.fullName} Works</h1>
           </div>
           {/* LIST POST */}
           <div className="mt-10">
             {/* PARENT CARD */}
             <div className="grid grid-cols-4 gap-2 mx-20">
               {/* CARD LIST POST */}
-              <div className="card w-80 shadow-xl mb-2">
-                <img src={Project1} alt="project1" />
-              </div>
+              {post?.map((item, index) => (
+                <div key={index} className="card h-full shadow-xl mb-2">
+                  {item?.photos.map((item, index) => (
+                    <div key={index} className="h-full rounded-xl w-full">
+                      <img
+                        src={item.image}
+                        alt={index}
+                        className="hover:opacity-70 h-full w-full rounded-xl object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              ))}
               {/* END CARD */}
             </div>
           </div>

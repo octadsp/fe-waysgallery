@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { API } from "../config/api";
 import { UserContext } from "../context/UserContext";
@@ -39,14 +39,31 @@ function DetailPost() {
               </div>
             </div>
             {/* PROFILE INFO */}
-            <div className="flex flex-col justify-around py-1">
-              <div>
-                <h1 className="font-bold">{posts.title}</h1>
-              </div>
-              <div>
-                <p className="font-light text-sm">{posts.user.fullName}</p>
-              </div>
-            </div>
+            {posts.user.id === state.user.id ? (
+              <Link
+                to={"/profile"}
+                className="flex flex-col justify-around py-1"
+              >
+                <div>
+                  <h1 className="font-bold">{posts.title}</h1>
+                </div>
+                <div>
+                  <p className="font-light text-sm">{posts.user.fullName}</p>
+                </div>
+              </Link>
+            ) : (
+              <Link
+                to={`/user/` + posts.user.id}
+                className="flex flex-col justify-around py-1"
+              >
+                <div>
+                  <h1 className="font-bold">{posts.title}</h1>
+                </div>
+                <div>
+                  <p className="font-light text-sm">{posts.user.fullName}</p>
+                </div>
+              </Link>
+            )}
           </div>
           {/* RIGHT PROFILE */}
           {posts.user.id === state.user.id ? (
@@ -85,7 +102,7 @@ function DetailPost() {
           <div className="carousel flex justify-start mt-5 mx-5 gap-5">
             {posts?.photos?.map((item, index) => (
               <a
-              key={index}
+                key={index}
                 onClick={() => setActiveIndex(index)}
                 className="carousel-item"
               >

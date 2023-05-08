@@ -138,7 +138,7 @@ function ProfilePage() {
             <div className="grid grid-cols-5 gap-3 mx-20">
               {/* CARD LIST POST */}
               {posts?.map((item, index) => (
-                <div key={index} className="card h-3/4 shadow-xl mb-2">
+                <div key={index} className="card h-full shadow-xl mb-2">
                   {item?.photos.map((item, index) => (
                     <div key={index} className="h-full rounded-xl w-full">
                       <img
