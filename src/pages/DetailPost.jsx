@@ -75,7 +75,7 @@ function DetailPost() {
               </div>
               <div className="btn btn-sm bg-light-green border-none hover:font-bold hover:ring-2 hover:ring-light-green">
                 <button
-                  onClick={() => navigate(`/order/${posts.id}`)}
+                  onClick={() => navigate(`/order/${state.user.id}`)}
                   className="px-4"
                 >
                   Hire
